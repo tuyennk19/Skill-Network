@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử Đánh giá - Skill_Network</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="courses.html">Khóa học bổ trợ</a>
+                <a href="history.html" class="active">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="profile.html" class="btn btn-outline">Hồ sơ (Học viên)</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Trang -->
+    <section class="page-header" style="padding: 100px 0 50px;">
+        <div class="container text-center">
+            <h1 class="page-title">Lịch sử Đánh giá Năng lực</h1>
+            <p class="page-desc" style="margin: 0 auto;">Theo dõi sự tiến bộ của bạn qua từng bài kiểm tra tình huống thực chiến.</p>
+        </div>
+    </section>
+
+    <!-- Nội dung chính -->
+    <main class="section pt-0">
+        <div class="container">
+            
+            <!-- Thanh lọc (Filter) -->
+            <div class="filter-bar" style="margin-top: 0; margin-bottom: 30px;">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="search" class="search-input" id="history-search" placeholder="Tìm kiếm theo tên tình huống..." aria-label="Tìm kiếm lịch sử">
+                </div>
+                <select class="filter-select" id="history-track" aria-label="Lọc theo ngành nghề">
+                    <option value="">Tất cả ngành nghề</option>
+                </select>
+                <select class="filter-select" id="history-sort" aria-label="Sắp xếp lịch sử">
+                    <option value="">Mới nhất</option>
+                    <option value="oldest">Cũ nhất</option>
+                    <option value="highest">Điểm cao nhất</option>
+                </select>
+            </div>
+
+            <!-- Danh sách Lịch sử -->
+            <p id="history-status" class="data-status" role="status">Đang tải lịch sử đánh giá...</p>
+            <div class="history-list" id="history-list"></div>
+
+            <!-- Phân trang -->
+            <nav class="pagination" id="history-pagination" aria-label="Phân trang lịch sử"></nav>
+        </div>
+    </main>
+
+    <footer class="footer mt-5">
+        <div class="container footer-content text-center" style="display:block;">
+            <p class="text-muted">&copy; 2026 Đồ án Công nghệ Phần mềm - Skill_Network.</p>
+        </div>
+    </footer>
+    <script type="module" src="js/pages/history.js"></script>
+</body>
+</html>

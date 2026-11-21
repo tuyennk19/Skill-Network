@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khóa học bổ trợ - Skill_Network</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chỉ cần nạp 1 file CSS duy nhất -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="courses.html" class="active">Khóa học bổ trợ</a>
+                <a href="history.html">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-ghost">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Trang -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Thư viện Khóa học</h1>
+            <p class="page-desc">Khám phá các khóa học mẫu được liên kết với những tiêu chí năng lực thuộc từng ngành nghề.</p>
+        </div>
+    </section>
+
+    <!-- Nội dung chính -->
+    <main class="section pt-0">
+        <div class="container">
+            <!-- Thanh lọc (Filter) -->
+            <div class="filter-bar">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="search" class="search-input" id="course-search" placeholder="Tìm kiếm khóa học theo tên hoặc kỹ năng...">
+                </div>
+                <select class="filter-select" id="course-track">
+                    <option value="">Tất cả ngành nghề</option>
+                </select>
+                <select class="filter-select" id="course-level">
+                    <option value="">Mọi cấp độ</option>
+                    <option value="Cơ bản">Cơ bản</option>
+                    <option value="Trung cấp">Trung cấp</option>
+                    <option value="Nâng cao">Nâng cao</option>
+                </select>
+            </div>
+
+            <!-- Lưới Khóa học -->
+            <p id="courses-status" class="data-status" hidden></p>
+            <div class="grid-container courses-grid courses-grid-margin" id="courses-list"></div>
+
+            <!-- Phân trang -->
+            <nav class="pagination" id="courses-pagination" aria-label="Phân trang khóa học"></nav>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content text-center" style="display:block;">
+            <div class="footer-logo mb-4">
+                <i class="fa-solid fa-layer-group"></i> Skill_Network
+            </div>
+            <div class="footer-links text-muted">
+                <p>&copy; 2026 Đồ án Công nghệ Phần mềm.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="js/pages/catalog.js"></script>
+</body>
+</html>

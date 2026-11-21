@@ -1,0 +1,155 @@
+{
+  "info": {
+    "name": "Skill_Network API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" },
+    { "key": "adminToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/health"
+      }
+    },
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"student.test@skillnetwork.local\",\n  \"password\": \"Student@123\",\n  \"fullName\": \"Học viên Test\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/register"
+      }
+    },
+    {
+      "name": "Login Student",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"student@skillnetwork.local\",\n  \"password\": \"Student@123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login"
+      }
+    },
+    {
+      "name": "Login Admin",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@skillnetwork.local\",\n  \"password\": \"Admin@123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login"
+      }
+    },
+    {
+      "name": "Current User",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/auth/me"
+      }
+    },
+    {
+      "name": "List Tracks",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/tracks"
+      }
+    },
+    {
+      "name": "List Courses",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/courses?page=1&pageSize=10"
+      }
+    },
+    {
+      "name": "Random Case",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/cases/random?trackId=1"
+      }
+    },
+    {
+      "name": "Submit Assessment",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"caseId\": 1,\n  \"answer\": \"Tôi sẽ xin làm rõ lý do khách hàng cho rằng giá cao, xác nhận ngân sách và các tiêu chí ra quyết định. Tiếp theo tôi sẽ dùng dữ liệu về tổng chi phí sở hữu, hiệu quả vận hành và rủi ro để xây dựng lập luận giá trị. Tôi đề xuất demo quy trình với người dùng và buổi họp riêng với giám đốc tài chính để thống nhất mốc phản hồi.\"\n}"
+        },
+        "url": "{{baseUrl}}/api/assessments"
+      }
+    },
+    {
+      "name": "Assessment History",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/assessments/history"
+      }
+    },
+    {
+      "name": "Admin List Tracks",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/tracks"
+      }
+    },
+    {
+      "name": "Admin Create Track",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"customer_service\",\n  \"name\": \"Chăm sóc khách hàng\",\n  \"description\": \"Xử lý tình huống dịch vụ khách hàng\",\n  \"isActive\": true\n}"
+        },
+        "url": "{{baseUrl}}/api/admin/tracks"
+      }
+    },
+    {
+      "name": "Admin Create Case",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"trackId\": 1,\n  \"title\": \"Khách hàng yêu cầu hoàn tiền\",\n  \"scenario\": \"Khách hàng từ chối tiếp tục hợp đồng vì sản phẩm chưa đáp ứng kỳ vọng. Hãy trình bày cách lắng nghe, làm rõ nguyên nhân và đề xuất bước tiếp theo.\",\n  \"difficulty\": \"Trung bình\",\n  \"isActive\": true\n}"
+        },
+        "url": "{{baseUrl}}/api/admin/cases"
+      }
+    },
+    {
+      "name": "Admin Stats",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/stats"
+      }
+    }
+  ]
+}

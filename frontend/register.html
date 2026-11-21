@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Skill_Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="logo justify-center mb-4">
+                    <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    Skill_Network
+                </a>
+                <h1 class="auth-title">Tạo tài khoản mới</h1>
+                <p class="auth-subtitle">Bắt đầu đánh giá năng lực của bạn ngay hôm nay.</p>
+            </div>
+
+            <form id="register-form" class="auth-form" novalidate>
+                <div id="register-feedback" class="form-error hidden" role="alert" aria-live="polite"></div>
+
+                <div class="form-group">
+                    <label for="fullName" class="form-label">Họ và tên</label>
+                    <div class="input-with-icon">
+                        <i class="fa-regular fa-user input-icon"></i>
+                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Nguyễn Văn A" required minlength="2" maxlength="100" autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="name@example.com" required maxlength="255" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Tối thiểu 8 ký tự, gồm chữ và số" required minlength="8" autocomplete="new-password" aria-describedby="password-hint">
+                    </div>
+                    <span id="password-hint" class="form-hint">Dùng ít nhất 8 ký tự, có chữ cái và chữ số.</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block shadow-hover" id="register-submit">Tạo tài khoản</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Đã có tài khoản? <a href="login.html?registered=1" class="auth-link">Đăng nhập</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/pages/register.js"></script>
+</body>
+</html>

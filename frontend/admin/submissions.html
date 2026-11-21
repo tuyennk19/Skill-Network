@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài nộp & Điểm - Skill_Network Admin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    
+    <div class="admin-layout">
+        <!-- Sidebar Menu -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span>Skill_Network</span>
+            </div>
+            
+            <div class="admin-menu-label">TỔNG QUAN</div>
+            <nav class="admin-nav">
+                <a href="/admin/index.html" class="admin-nav-link"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</a>
+            </nav>
+
+            <div class="admin-menu-label mt-4">QUẢN LÝ HỆ THỐNG</div>
+            <nav class="admin-nav">
+                <a href="/admin/tracks.html" class="admin-nav-link"><i class="fa-solid fa-briefcase w-5"></i> Ngành & Tiêu chí</a>
+                <a href="/admin/courses.html" class="admin-nav-link"><i class="fa-solid fa-laptop-code w-5"></i> Khóa học</a>
+                <a href="/admin/cases.html" class="admin-nav-link"><i class="fa-solid fa-file-contract w-5"></i> Tình huống (Cases)</a>
+                <a href="/admin/submissions.html" class="admin-nav-link active"><i class="fa-solid fa-inbox w-5"></i> Bài nộp & Điểm</a>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <button class="btn btn-outline btn-block text-red" data-logout style="border-color: #fca5a5;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <h1 class="admin-page-title">Quản lý Bài nộp & Kết quả AI</h1>
+                <div class="admin-profile">
+                    <span class="text-sm font-medium mr-2">Xin chào, <strong>Quản trị viên</strong></span>
+                    <div class="profile-avatar-small bg-primary text-white">AD</div>
+                </div>
+            </header>
+
+            <div class="admin-content-inner">
+                <!-- Bộ lọc theo các tham số của API bài nộp -->
+                <div class="admin-toolbar mb-4" style="flex-wrap: wrap;">
+                    <div class="submission-filters">
+                        <select class="form-input" id="submission-track-filter" aria-label="Lọc theo ngành nghề">
+                            <option value="">Mọi ngành nghề</option>
+                        </select>
+                        <label class="submission-filter-field">
+                            <span>Từ điểm</span>
+                            <input class="form-input" id="submission-min-score" type="number" min="0" max="10" step="0.1" placeholder="0" aria-label="Điểm tối thiểu">
+                        </label>
+                        <label class="submission-filter-field">
+                            <span>Đến điểm</span>
+                            <input class="form-input" id="submission-max-score" type="number" min="0" max="10" step="0.1" placeholder="10" aria-label="Điểm tối đa">
+                        </label>
+                        <label class="submission-filter-field">
+                            <span>Từ ngày</span>
+                            <input class="form-input" id="submission-from" type="date" aria-label="Ngày bắt đầu">
+                        </label>
+                        <label class="submission-filter-field">
+                            <span>Đến ngày</span>
+                            <input class="form-input" id="submission-to" type="date" aria-label="Ngày kết thúc">
+                        </label>
+                        <button class="btn btn-outline" id="submission-filter-button" type="button"><i class="fa-solid fa-filter"></i> Lọc</button>
+                    </div>
+                </div>
+
+                <!-- Bảng Dữ liệu -->
+                <div class="card p-0">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">ID</th>
+                                    <th width="20%">Học viên</th>
+                                    <th width="25%">Tình huống</th>
+                                    <th width="15%">Ngày nộp</th>
+                                    <th width="10%">Điểm AI</th>
+                                    <th width="15%">Trạng thái</th>
+                                    <th width="10%" class="text-right">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submission-list">
+                                <tr><td class="text-muted" colspan="7">Đang tải bài nộp...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-footer">
+                        <span class="text-sm text-muted" id="submission-count"></span>
+                        <div class="pagination" style="margin-top: 0; align-items: center;">
+                            <button class="page-btn" id="submission-previous" type="button" aria-label="Trang trước">‹</button>
+                            <span class="text-sm text-muted" id="submission-page"></span>
+                            <button class="page-btn" id="submission-next" type="button" aria-label="Trang sau">›</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= MODAL: XEM CHI TIẾT BÀI NỘP VÀ KẾT QUẢ AI ================= -->
+    <div class="modal-overlay" id="submission-modal">
+        <div class="modal-container modal-xl">
+            <div class="modal-header bg-light">
+                <h3 class="modal-title">Chi tiết bài nộp</h3>
+                <button class="modal-close" type="button" data-modal-close="submission-modal" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body" style="padding: 0;">
+                <div class="grid-container m-0 submission-detail-grid" style="grid-template-columns: 1fr 1fr; gap: 0;">
+                    
+                    <!-- Nửa trái: Bài làm của sinh viên -->
+                    <div style="padding: 24px; border-right: 1px solid var(--border-color); background: white;">
+                        <div class="mb-4">
+                            <h4 class="font-medium text-sm text-muted text-uppercase mb-1">Thông tin học viên</h4>
+                            <div class="font-bold text-main" id="detail-student"></div>
+                            <div class="text-sm text-muted" id="detail-email"></div>
+                            <div class="text-sm text-muted mt-2" id="detail-meta"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-medium text-sm text-muted text-uppercase mb-1">Tình huống (Đề bài)</h4>
+                            <div class="p-3 bg-light border-radius-sm text-sm" style="border: 1px solid var(--border-color);">
+                                <span id="detail-scenario"></span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-sm text-muted text-uppercase mb-2">Câu trả lời gốc của sinh viên</h4>
+                            <!-- Readonly textarea hiển thị bài làm gốc để Admin rà soát chống gian lận -->
+                            <textarea class="form-input text-sm" id="detail-answer" readonly rows="12" style="background: #f8fafc; resize: none;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Nửa phải: Máy chấm (AI JSON Parsing) -->
+                    <div style="padding: 24px; background: #fafaf9;">
+                        <div class="align-left-header mb-4" style="margin-bottom: 20px;">
+                            <h4 class="font-bold"><i class="fa-solid fa-robot text-primary mr-2"></i> Kết quả phân tích (AI Engine)</h4>
+                            <div class="score-badge badge-good" id="detail-overall-score" style="font-size: 1.1rem; padding: 4px 16px;"></div>
+                        </div>
+
+                        <!-- Điểm thành phần -->
+                        <div class="mb-4">
+                            <h5 class="text-sm font-bold mb-2">Điểm Tiêu chí:</h5>
+                            <ul class="sidebar-list m-0 p-0" id="detail-criteria" style="background: white; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden;">
+                            </ul>
+                        </div>
+
+                        <!-- Lời nhận xét -->
+                        <div class="ai-insight-box insight-strengths p-3 mb-3">
+                            <div class="font-bold text-green mb-1"><i class="fa-solid fa-thumbs-up"></i> Điểm mạnh</div>
+                            <ul class="text-sm m-0" id="detail-strengths"></ul>
+                        </div>
+
+                        <div class="ai-insight-box insight-advice p-3 m-0">
+                            <div class="font-bold text-purple mb-1">Điểm cần cải thiện</div>
+                            <ul class="text-sm m-0" id="detail-weaknesses"></ul>
+                            <div class="font-bold text-purple mt-3 mb-1">Lời khuyên</div>
+                            <ul class="text-sm m-0" id="detail-advice"></ul>
+                            <div class="font-bold text-purple mt-3 mb-1">Chủ đề trọng tâm</div>
+                            <p class="text-sm m-0" id="detail-focus-topics"></p>
+                            <details class="mt-3">
+                                <summary class="font-medium text-sm">Kết quả AI dạng JSON</summary>
+                                <pre class="text-xs text-muted" id="detail-result-json" style="white-space: pre-wrap; overflow-wrap: anywhere;"></pre>
+                            </details>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" data-modal-close="submission-modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../js/pages/admin-submissions.js"></script>
+</body>
+</html>

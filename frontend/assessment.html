@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Làm bài đánh giá - Skill_Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <header class="navbar glass-effect assessment-navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <div class="assessment-nav-label"><i class="fa-solid fa-pen-to-square"></i> Bài đánh giá năng lực</div>
+        </div>
+    </header>
+
+    <main class="assessment-layout">
+        <div class="container assessment-grid">
+            <section class="scenario-panel">
+                <nav class="breadcrumb assessment-breadcrumb">
+                    <a href="tracks.html" id="track-breadcrumb">Ngành nghề</a>
+                    <span><i class="fa-solid fa-chevron-right"></i> Làm bài</span>
+                </nav>
+
+                <article class="card scenario-card">
+                    <div class="scenario-header">
+                        <div>
+                            <span class="assessment-eyebrow"><i class="fa-solid fa-briefcase"></i> TÌNH HUỐNG THỰC CHIẾN</span>
+                            <h1 class="scenario-title" id="scenario-title">Đang tải tình huống...</h1>
+                        </div>
+                        <span class="badge badge-basic" id="scenario-difficulty"></span>
+                    </div>
+                    <div class="scenario-content">
+                        <h2 class="scenario-label"><i class="fa-solid fa-file-contract"></i> Bối cảnh tình huống</h2>
+                        <p id="scenario-context">Đang tải nội dung...</p>
+                    </div>
+                    <p id="scenario-status" class="data-status" hidden></p>
+                </article>
+
+                <section class="card assessment-criteria-card">
+                    <div class="assessment-section-heading">
+                        <span class="assessment-heading-icon"><i class="fa-solid fa-list-check"></i></span>
+                        <div>
+                            <h2>Tiêu chí đánh giá</h2>
+                            <p>Câu trả lời sẽ được đánh giá theo các năng lực sau.</p>
+                        </div>
+                    </div>
+                    <p id="criteria-status" class="data-status" hidden></p>
+                    <div class="criteria-list" id="assessment-criteria"></div>
+                </section>
+            </section>
+
+            <section class="answer-panel">
+                <form class="card answer-card assessment-form" id="assessment-form">
+                    <div class="answer-header">
+                        <div>
+                            <span class="assessment-eyebrow">PHẦN TRẢ LỜI</span>
+                            <h2>Trình bày cách xử lý của bạn</h2>
+                        </div>
+                        <span class="answer-time"><i class="fa-regular fa-clock"></i> Không giới hạn thời gian</span>
+                    </div>
+
+                    <label class="sr-only" for="assessment-answer">Câu trả lời của bạn</label>
+                    <div class="textarea-wrapper">
+                        <textarea
+                            class="form-input textarea-custom"
+                            id="assessment-answer"
+                            name="answer"
+                            placeholder="Viết câu trả lời chi tiết, nêu rõ cách bạn phân tích tình huống và các bước xử lý..."
+                            minlength="50"
+                            maxlength="3000"
+                            required
+                            disabled
+                        ></textarea>
+                        <div class="textarea-footer">
+                            <span class="answer-guidance"><i class="fa-solid fa-circle-info"></i> Tối thiểu 50 ký tự để gửi bài.</span>
+                            <span class="char-counter" id="answer-counter">0 / 3000</span>
+                        </div>
+                    </div>
+
+                    <p id="submission-status" class="submission-status" role="status" hidden></p>
+                    <div class="answer-actions">
+                        <a href="tracks.html" id="back-to-cases" class="btn btn-ghost">Quay lại</a>
+                        <button class="btn btn-primary btn-large submit-assessment-btn" id="assessment-submit" type="submit" disabled>
+                            <i class="fa-solid fa-paper-plane"></i> Nộp bài
+                        </button>
+                    </div>
+                    <p class="assessment-privacy"><i class="fa-solid fa-shield-halved"></i> Bài làm được lưu riêng trong lịch sử tài khoản của bạn.</p>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <div class="loading-overlay" id="grading-overlay" hidden>
+        <div class="loading-card grading-card">
+            <div class="ai-scanner"><span class="scanner-line"></span><i class="fa-solid fa-wand-magic-sparkles text-primary"></i></div>
+            <h2>Đang đánh giá bài làm</h2>
+            <p>Hệ thống đang phân tích câu trả lời theo các tiêu chí năng lực. Vui lòng không đóng trang.</p>
+            <div class="grading-progress"><span></span></div>
+            <span class="grading-note">Quá trình này có thể mất một chút thời gian</span>
+        </div>
+    </div>
+
+    <script type="module" src="js/pages/assessment-preview.js"></script>
+</body>
+</html>

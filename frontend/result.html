@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo kết quả - Skill_Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="courses.html">Khóa học bổ trợ</a>
+                <a href="history.html">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="profile.html" class="btn btn-outline">Hồ sơ học viên</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="mock-banner" id="mock-banner" hidden>
+        <div class="container text-center">
+            <i class="fa-solid fa-circle-info"></i>
+            <strong>Dữ liệu mô phỏng:</strong> kết quả này không phải đánh giá từ AI thật.
+        </div>
+    </div>
+
+    <section class="result-header">
+        <div class="container result-header-inner">
+            <div class="result-title-area">
+                <div class="breadcrumb result-breadcrumb">
+                    <span id="result-track">Đang tải ngành nghề...</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span id="result-case">Đang tải tình huống...</span>
+                </div>
+                <h1 class="page-title">Báo cáo năng lực cá nhân</h1>
+                <p class="text-muted" id="result-date"></p>
+            </div>
+            <div class="overall-score-circle" aria-label="Điểm tổng quan">
+                <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120">
+                    <circle class="progress-ring__circle-bg" stroke="#e0e7ff" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                    <circle class="progress-ring__circle" id="score-ring" stroke="#4f46e5" stroke-width="8" fill="transparent" r="52" cx="60" cy="60" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+                </svg>
+                <div class="score-content">
+                    <span class="score-number" id="overall-score">--</span>
+                    <span class="score-max">/ 10</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container result-main">
+        <p id="result-status" class="data-status" role="status">Đang tải báo cáo...</p>
+        <div id="result-content" hidden>
+            <div class="result-dashboard-grid">
+                <div class="dashboard-col">
+                    <section class="card p-4 mb-4">
+                        <h2 class="card-title text-center"><i class="fa-solid fa-chart-pie text-primary"></i> Biểu đồ năng lực</h2>
+                        <div class="radar-chart-wrapper">
+                            <canvas id="radarChart" aria-label="Biểu đồ điểm từng tiêu chí" role="img"></canvas>
+                        </div>
+                    </section>
+                    <section class="card p-4">
+                        <h2 class="card-title mb-4"><i class="fa-solid fa-clipboard-check text-green"></i> Đánh giá theo tiêu chí</h2>
+                        <div class="criteria-score-list" id="criteria-scores"></div>
+                    </section>
+                </div>
+
+                <div class="dashboard-col">
+                    <section class="card p-4 h-100">
+                        <h2 class="card-title mb-4"><i class="fa-solid fa-wand-magic-sparkles text-purple"></i> Phản hồi từ AI</h2>
+                        <div class="ai-insight-box insight-strengths">
+                            <h3 class="insight-title"><i class="fa-solid fa-thumbs-up"></i> Điểm mạnh</h3>
+                            <ul class="insight-list" id="result-strengths"></ul>
+                        </div>
+                        <div class="ai-insight-box insight-weaknesses">
+                            <h3 class="insight-title"><i class="fa-solid fa-triangle-exclamation"></i> Điểm cần cải thiện</h3>
+                            <ul class="insight-list" id="result-weaknesses"></ul>
+                        </div>
+                        <div class="ai-insight-box insight-focus">
+                            <h3 class="insight-title"><i class="fa-solid fa-crosshairs"></i> Kiến thức nên bổ sung</h3>
+                            <div class="tags-container" id="result-focus"></div>
+                        </div>
+                        <div class="ai-insight-box insight-advice">
+                            <h3 class="insight-title"><i class="fa-regular fa-lightbulb"></i> Lời khuyên hành động</h3>
+                            <ul class="insight-list" id="result-advice"></ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="section result-recommendations">
+                <div class="section-header align-left-header">
+                    <div>
+                        <h2 class="section-title">Khóa học gợi ý cho bạn</h2>
+                        <p class="section-desc" id="recommendation-summary"></p>
+                    </div>
+                </div>
+                <p id="recommendations-empty" class="data-status" hidden></p>
+                <div class="grid-container courses-grid" id="recommendations-list"></div>
+            </section>
+
+            <div class="result-actions">
+                <a href="history.html" class="btn btn-outline"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử đánh giá</a>
+                <a href="tracks.html" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Chọn tình huống khác</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content text-center" style="display:block;">
+            <p class="text-muted">&copy; 2026 Đồ án Công nghệ Phần mềm - Skill_Network.</p>
+        </div>
+    </footer>
+    <script type="module" src="js/pages/result.js"></script>
+</body>
+</html>

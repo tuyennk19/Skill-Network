@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Skill_Network</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link CSS lùi ra một cấp thư mục -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Thư viện Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+    
+    <div class="admin-layout">
+        <!-- Sidebar Menu -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span>Skill_Network</span>
+            </div>
+            
+            <div class="admin-menu-label">TỔNG QUAN</div>
+            <nav class="admin-nav">
+                <a href="/admin/index.html" class="admin-nav-link active"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</a>
+            </nav>
+
+            <div class="admin-menu-label mt-4">QUẢN LÝ HỆ THỐNG</div>
+            <nav class="admin-nav">
+                <a href="/admin/tracks.html" class="admin-nav-link"><i class="fa-solid fa-briefcase w-5"></i> Ngành & Tiêu chí</a>
+                <a href="/admin/courses.html" class="admin-nav-link"><i class="fa-solid fa-laptop-code w-5"></i> Khóa học</a>
+                <a href="/admin/cases.html" class="admin-nav-link"><i class="fa-solid fa-file-contract w-5"></i> Tình huống (Cases)</a>
+                <a href="/admin/submissions.html" class="admin-nav-link"><i class="fa-solid fa-inbox w-5"></i> Bài nộp & Điểm</a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <button class="btn btn-outline btn-block text-red" data-logout style="border-color: #fca5a5;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-topbar">
+                <h1 class="admin-page-title">Dashboard Thống Kê</h1>
+                <div class="admin-profile">
+                    <span class="text-sm font-medium mr-2">Xin chào, <strong>Quản trị viên</strong></span>
+                    <div class="profile-avatar-small bg-primary text-white">AD</div>
+                </div>
+            </header>
+
+            <div class="admin-content-inner">
+                <!-- Thẻ Số liệu Tổng quan (Overview Cards) -->
+                <div class="dashboard-stats-grid">
+                    <!-- Thẻ 1 -->
+                    <div class="card stat-card">
+                        <div class="stat-card-info">
+                            <p class="stat-card-label">Tổng Học Viên</p>
+                            <h3 class="stat-card-number" id="total-students">—</h3>
+                            <p class="stat-card-trend text-muted">Tài khoản học viên</p>
+                        </div>
+                        <div class="stat-card-icon bg-blue-light text-blue"><i class="fa-solid fa-users"></i></div>
+                    </div>
+
+                    <!-- Thẻ 2 -->
+                    <div class="card stat-card">
+                        <div class="stat-card-info">
+                            <p class="stat-card-label">Tổng Bài Nộp Đã Chấm</p>
+                            <h3 class="stat-card-number" id="total-assessments">—</h3>
+                            <p class="stat-card-trend text-muted">Bài nộp đã lưu trong hệ thống</p>
+                        </div>
+                        <div class="stat-card-icon bg-purple-light text-purple"><i class="fa-solid fa-file-lines"></i></div>
+                    </div>
+
+                    <!-- Thẻ 3 -->
+                    <div class="card stat-card">
+                        <div class="stat-card-info">
+                            <p class="stat-card-label">Điểm Trung Bình</p>
+                            <h3 class="stat-card-number"><span id="average-score">—</span> <span class="text-sm text-muted font-normal">/ 10</span></h3>
+                            <p class="stat-card-trend text-muted">Điểm trung bình toàn hệ thống</p>
+                        </div>
+                        <div class="stat-card-icon bg-green-light text-green"><i class="fa-solid fa-star"></i></div>
+                    </div>
+                </div>
+
+                <!-- Khu vực Biểu đồ -->
+                <div class="dashboard-charts-grid mt-4">
+                    <!-- Biểu đồ đường: Lượng bài nộp 7 ngày -->
+                    <div class="card p-4">
+                        <h3 class="content-section-title" style="font-size: 1.1rem; border: none; margin-bottom: 20px;">Lượt nộp bài (7 ngày qua)</h3>
+                        <div class="chart-container" style="height: 300px; position: relative;">
+                            <canvas id="submissionsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ cột ngang: Điểm TB theo ngành -->
+                    <div class="card p-4">
+                        <h3 class="content-section-title" style="font-size: 1.1rem; border: none; margin-bottom: 20px;">Điểm TB theo Ngành</h3>
+                        <div class="chart-container" style="height: 300px; position: relative;">
+                            <canvas id="scoresChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../js/pages/admin-dashboard.js"></script>
+</body>
+</html>

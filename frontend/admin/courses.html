@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Khóa học - Skill_Network Admin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    
+    <div class="admin-layout">
+        <!-- Sidebar Menu -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span>Skill_Network</span>
+            </div>
+            
+            <div class="admin-menu-label">TỔNG QUAN</div>
+            <nav class="admin-nav">
+                <a href="/admin/index.html" class="admin-nav-link"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</a>
+            </nav>
+
+            <div class="admin-menu-label mt-4">QUẢN LÝ HỆ THỐNG</div>
+            <nav class="admin-nav">
+                <a href="/admin/tracks.html" class="admin-nav-link"><i class="fa-solid fa-briefcase w-5"></i> Ngành & Tiêu chí</a>
+                <a href="/admin/courses.html" class="admin-nav-link active"><i class="fa-solid fa-laptop-code w-5"></i> Khóa học</a>
+                <a href="/admin/cases.html" class="admin-nav-link"><i class="fa-solid fa-file-contract w-5"></i> Tình huống (Cases)</a>
+                <a href="/admin/submissions.html" class="admin-nav-link"><i class="fa-solid fa-inbox w-5"></i> Bài nộp & Điểm</a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <button class="btn btn-outline btn-block text-red" data-logout style="border-color: #fca5a5;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-topbar">
+                <h1 class="admin-page-title">Quản lý Khóa học Bổ trợ</h1>
+                <div class="admin-profile">
+                    <span class="text-sm font-medium mr-2">Xin chào, <strong>Quản trị viên</strong></span>
+                    <div class="profile-avatar-small bg-primary text-white">AD</div>
+                </div>
+            </header>
+
+            <div class="admin-content-inner">
+                <!-- Khu vực điều khiển (Toolbar) -->
+                <div class="admin-toolbar mb-4">
+                    <div class="search-input-wrapper" style="max-width: 400px; display: flex; gap: 12px; align-items: center;">
+                        <div style="position: relative; flex-grow: 1;">
+                            <i class="fa-solid fa-search search-icon"></i>
+                            <input type="text" class="search-input" id="course-search" placeholder="Tìm kiếm tên khóa học...">
+                        </div>
+                        <select class="form-input" id="course-level-filter" style="padding: 10px; width: 140px;">
+                            <option value="">Mọi Cấp độ</option>
+                            <option value="Cơ bản">Cơ bản</option>
+                            <option value="Trung cấp">Trung cấp</option>
+                            <option value="Nâng cao">Nâng cao</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary shadow-hover" id="course-add">
+                        <i class="fa-solid fa-plus ms-2"></i> Thêm Khóa học
+                    </button>
+                </div>
+
+                <!-- Bảng Dữ liệu Khóa học -->
+                <div class="card p-0">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">ID</th>
+                                    <th width="35%">Tên Khóa Học</th>
+                                    <th width="15%">Cấp độ</th>
+                                    <th width="15%">Thời lượng</th>
+                                    <th width="15%">Trạng thái</th>
+                                    <th width="15%" class="text-right">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="course-list"></tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-footer">
+                        <span class="text-sm text-muted">Đang tải khóa học...</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= MODAL: THÊM / SỬA KHÓA HỌC ================= -->
+    <div class="modal-overlay" id="course-modal">
+        <div class="modal-container modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Quản lý Khóa Học</h3>
+                <button class="modal-close" data-modal-close="course-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body bg-light" id="course-form-container" style="max-height: 75vh; overflow-y: auto;">
+                <form class="auth-form" style="max-width: 100%;">
+                    
+                    <div class="card p-4 mb-4">
+                        <h4 class="font-medium mb-4 text-primary"><i class="fa-solid fa-circle-info mr-2"></i> Thông tin cơ bản</h4>
+                        
+                        <div class="grid-container" style="grid-template-columns: 2fr 1fr; gap: 16px;">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Tên Khóa Học</label>
+                                <input type="text" class="form-input" placeholder="Nhập tên khóa học..." style="padding-left: 14px;">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Link Ảnh Thumbnail (URL)</label>
+                                <input type="text" class="form-input" placeholder="https://..." style="padding-left: 14px;">
+                            </div>
+                        </div>
+
+                        <div class="grid-container mt-4" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Cấp độ</label>
+                                <select class="form-input" style="padding-left: 14px;">
+                                    <option value="Cơ bản">Cơ bản</option>
+                                    <option value="Trung cấp">Trung cấp</option>
+                                    <option value="Nâng cao">Nâng cao</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Thời lượng (Giờ)</label>
+                                <input type="number" class="form-input" placeholder="VD: 12" style="padding-left: 14px;">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Trạng thái</label>
+                                <select class="form-input" style="padding-left: 14px;">
+                                    <option value="1">Hoạt động</option>
+                                    <option value="0">Tạm ẩn</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4 mb-0">
+                            <label class="form-label">Mô tả Khóa học</label>
+                            <textarea class="form-input" rows="3" placeholder="Tóm tắt nội dung khóa học..." style="padding-left: 14px; resize: vertical;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực Checkbox Gán Tiêu chí (Mapping) -->
+                    <div class="card p-4">
+                        <h4 class="font-medium mb-2 text-primary"><i class="fa-solid fa-link mr-2"></i> Gán Tiêu chí Đánh giá (Mapping)</h4>
+                        <p class="text-sm text-muted mb-4">Hệ thống AI sẽ gợi ý khóa học này nếu học viên bị điểm Yếu ở các tiêu chí được chọn bên dưới.</p>
+                        
+                        <!-- Nhóm tiêu chí ngành Bán hàng -->
+                        <div class="criteria-group mb-3">
+                            <div class="font-medium text-sm mb-2 pb-1 border-bottom" style="color: var(--text-main);">Ngành: Bán hàng B2B</div>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="1">
+                                    <span>Đồng cảm (empathy)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="2" checked>
+                                    <span>Xử lý phản đối (objectionHandling)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="3">
+                                    <span>Giải quyết logic (logicalReasoning)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="4">
+                                    <span>Giọng điệu (communicationTone)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="5">
+                                    <span>Năng lực chốt sale (closingSkill)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Nhóm tiêu chí ngành Marketing (Ví dụ) -->
+                        <div class="criteria-group">
+                            <div class="font-medium text-sm mb-2 pb-1 border-bottom" style="color: var(--text-main);">Ngành: Digital Marketing</div>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="6">
+                                    <span>Insight Khách hàng (audienceInsight)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="criteria" value="7">
+                                    <span>Sáng tạo Nội dung (contentCreativity)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-ghost" data-modal-close="course-modal">Hủy bỏ</button>
+                <button class="btn btn-primary" id="course-save"><i class="fa-solid fa-check ms-2"></i> Lưu Khóa Học</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../js/pages/admin-courses.js"></script>
+</body>
+</html>

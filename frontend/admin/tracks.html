@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Ngành & Tiêu chí - Skill_Network Admin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link CSS lùi ra một cấp thư mục -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    
+    <div class="admin-layout">
+        <!-- Sidebar Menu -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span>Skill_Network</span>
+            </div>
+            
+            <div class="admin-menu-label">TỔNG QUAN</div>
+            <nav class="admin-nav">
+                <a href="/admin/index.html" class="admin-nav-link"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</a>
+            </nav>
+
+            <div class="admin-menu-label mt-4">QUẢN LÝ HỆ THỐNG</div>
+            <nav class="admin-nav">
+                <a href="/admin/tracks.html" class="admin-nav-link active"><i class="fa-solid fa-briefcase w-5"></i> Ngành & Tiêu chí</a>
+                <a href="/admin/courses.html" class="admin-nav-link"><i class="fa-solid fa-laptop-code w-5"></i> Khóa học</a>
+                <a href="/admin/cases.html" class="admin-nav-link"><i class="fa-solid fa-file-contract w-5"></i> Tình huống (Cases)</a>
+                <a href="/admin/submissions.html" class="admin-nav-link"><i class="fa-solid fa-inbox w-5"></i> Bài nộp & Điểm</a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <button class="btn btn-outline btn-block text-red" data-logout style="border-color: #fca5a5;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-topbar">
+                <h1 class="admin-page-title">Quản lý Ngành nghề & Tiêu chí</h1>
+                <div class="admin-profile">
+                    <span class="text-sm font-medium mr-2">Xin chào, <strong>Quản trị viên</strong></span>
+                    <div class="profile-avatar-small bg-primary text-white">AD</div>
+                </div>
+            </header>
+
+            <div class="admin-content-inner">
+                <!-- Khu vực điều khiển (Toolbar) -->
+                <div class="admin-toolbar mb-4">
+                    <div class="search-input-wrapper" style="max-width: 350px;">
+                        <i class="fa-solid fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="track-search" placeholder="Tìm kiếm mã hoặc tên ngành...">
+                    </div>
+                    <!-- Nút Mở form thêm ngành (Dùng onclick JS tĩnh để test giao diện) -->
+                    <button class="btn btn-primary shadow-hover" id="track-add">
+                        <i class="fa-solid fa-plus ms-2"></i> Thêm Ngành Mới
+                    </button>
+                </div>
+
+                <!-- Thẻ chứa Bảng Dữ liệu -->
+                <div class="card p-0">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">ID</th>
+                                    <th width="15%">Mã Ngành</th>
+                                    <th width="30%">Tên Ngành</th>
+                                    <th width="15%">Số Tiêu chí</th>
+                                    <th width="15%">Trạng thái</th>
+                                    <th width="20%" class="text-right">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="track-list"></tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Footer Bảng (Phân trang) -->
+                    <div class="table-footer">
+                        <span class="text-sm text-muted">Đang tải ngành nghề...</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= MODAL: THÊM / SỬA NGÀNH ================= -->
+    <div class="modal-overlay" id="track-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Thêm Ngành Nghề Mới</h3>
+                <button class="modal-close" data-modal-close="track-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form" style="max-width: 100%;">
+                    <div class="form-group">
+                        <label class="form-label">Mã Ngành (Code)</label>
+                        <input type="text" class="form-input" id="track-code" placeholder="VD: sales_b2b" style="padding-left: 14px;">
+                        <span class="text-xs text-muted mt-1 block">Dùng làm định danh duy nhất, không dấu, không khoảng trắng.</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tên Ngành Hiển Thị</label>
+                        <input type="text" class="form-input" id="track-name" placeholder="VD: Bán hàng doanh nghiệp B2B" style="padding-left: 14px;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mô tả ngắn</label>
+                        <textarea class="form-input" id="track-description" rows="3" placeholder="Nhập mô tả ngành nghề..." style="padding-left: 14px; resize: vertical;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" data-modal-close="track-modal">Hủy bỏ</button>
+                <button class="btn btn-primary" id="track-save">Lưu thông tin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: QUẢN LÝ TIÊU CHÍ (CỠ LỚN) ================= -->
+    <div class="modal-overlay" id="criteria-modal">
+        <div class="modal-container modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Quản lý Tiêu chí: <span class="text-primary">Bán hàng B2B</span></h3>
+                <button class="modal-close" data-modal-close="criteria-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body bg-light" style="max-height: 65vh; overflow-y: auto;">
+                
+                <!-- Card 1 tiêu chí mẫu -->
+                <div class="card p-4 mb-4">
+                    <div class="align-left-header" style="margin-bottom: 16px;">
+                        <h4 class="font-medium"><i class="fa-solid fa-tag text-purple mr-2"></i> Đồng cảm (empathy)</h4>
+                        <div class="action-btns">
+                            <button class="btn btn-outline btn-sm text-blue"><i class="fa-regular fa-pen-to-square"></i></button>
+                            <button class="btn btn-outline btn-sm text-red"><i class="fa-regular fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <div class="grid-container" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                        <div class="rubric-box bg-red-light">
+                            <div class="font-medium text-red mb-1">Yếu (0 - 4)</div>
+                            <p class="text-sm text-muted m-0">Bỏ qua cảm xúc/nhu cầu của khách hàng.</p>
+                        </div>
+                        <div class="rubric-box bg-yellow-light">
+                            <div class="font-medium text-yellow mb-1">Đạt (5 - 7)</div>
+                            <p class="text-sm text-muted m-0">Ghi nhận vấn đề nhưng phản hồi chung chung.</p>
+                        </div>
+                        <div class="rubric-box bg-green-light">
+                            <div class="font-medium text-green mb-1">Tốt (8 - 10)</div>
+                            <p class="text-sm text-muted m-0">Nhận diện đúng nhu cầu, phản hồi cảm xúc tinh tế.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Thêm tiêu chí mới ngay bên dưới -->
+                <div class="card p-4" style="border: 1px dashed var(--primary); background: transparent;">
+                    <h4 class="font-medium mb-4"><i class="fa-solid fa-plus text-primary mr-2"></i> Thêm Tiêu Chí Mới</h4>
+                    <form class="auth-form" style="max-width: 100%;">
+                        <div class="grid-container" style="grid-template-columns: 1fr 2fr; gap: 16px;">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Mã Tiêu Chí (Code)</label>
+                                <input type="text" class="form-input" placeholder="VD: logicalReasoning" style="padding-left: 14px;">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Tên Hiển Thị</label>
+                                <input type="text" class="form-input" placeholder="VD: Tư duy logic" style="padding-left: 14px;">
+                            </div>
+                        </div>
+                        <div class="grid-container mt-4" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                            <div class="form-group mb-0">
+                                <label class="form-label text-red">Mô tả Yếu (0-4)</label>
+                                <textarea class="form-input text-sm" rows="3" placeholder="Rubric cho mức Yếu..." style="padding-left: 14px;"></textarea>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label text-yellow">Mô tả Đạt (5-7)</label>
+                                <textarea class="form-input text-sm" rows="3" placeholder="Rubric cho mức Đạt..." style="padding-left: 14px;"></textarea>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label text-green">Mô tả Tốt (8-10)</label>
+                                <textarea class="form-input text-sm" rows="3" placeholder="Rubric cho mức Tốt..." style="padding-left: 14px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="text-right mt-4">
+                            <button type="button" class="btn btn-primary"><i class="fa-solid fa-check ms-2"></i> Lưu Tiêu Chí</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../js/pages/admin-tracks.js"></script>
+</body>
+</html>

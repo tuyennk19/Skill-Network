@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Skill_Network</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="courses.html">Khóa học bổ trợ</a>
+                <a href="history.html">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline profile-logout" id="profile-logout" type="button"><i class="fa-solid fa-right-from-bracket ms-2"></i> Đăng xuất</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="section" style="padding-top: 120px;">
+        <div class="container profile-layout">
+            
+            <!-- Cột trái: Menu Sidebar Hồ sơ -->
+            <aside class="profile-sidebar card">
+                <div class="profile-user-info text-center">
+                    <div class="profile-avatar">
+                        <span class="avatar-text" id="profile-avatar">--</span>
+                    </div>
+                    <h3 class="profile-name" id="profile-name">Đang tải hồ sơ...</h3>
+                    <p class="profile-email text-muted text-sm" id="profile-email"></p>
+                    <span class="badge badge-medium mt-2" id="profile-role" style="position:static;">Tài khoản</span>
+                </div>
+                
+                <nav class="profile-nav mt-4">
+                    <a href="#info" class="profile-nav-link active"><i class="fa-regular fa-user w-5"></i> Thông tin cá nhân</a>
+                    <a href="#security" class="profile-nav-link"><i class="fa-solid fa-shield-halved w-5"></i> Đổi mật khẩu</a>
+                    <a href="history.html" class="profile-nav-link"><i class="fa-solid fa-clock-rotate-left w-5"></i> Lịch sử làm bài</a>
+                </nav>
+            </aside>
+
+            <!-- Cột phải: Form cập nhật -->
+            <div class="profile-content">
+                
+                <!-- Form: Cập nhật thông tin -->
+                <div class="card p-4 mb-4" id="info">
+                    <h2 class="content-section-title" style="font-size: 1.25rem;">Thông tin cá nhân</h2>
+                    
+                    <p class="profile-feedback" id="profile-load-status" role="status">Đang tải thông tin tài khoản...</p>
+                    <form class="auth-form profile-form" id="profile-info-form" style="max-width: 500px;" hidden>
+                        <p class="profile-feedback" id="profile-info-feedback" role="status" hidden></p>
+
+                        <div class="form-group">
+                            <label for="profile-email-input" class="form-label">Email (Không thể thay đổi)</label>
+                            <div class="input-with-icon">
+                                <i class="fa-regular fa-envelope input-icon"></i>
+                                <input type="email" id="profile-email-input" class="form-input" disabled style="background-color: #f3f4f6; color: #6b7280; cursor: not-allowed;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-full-name" class="form-label">Họ và tên</label>
+                            <div class="input-with-icon">
+                                <i class="fa-regular fa-user input-icon"></i>
+                                <input type="text" id="profile-full-name" class="form-input" required minlength="2" maxlength="100" autocomplete="name">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary shadow-hover mt-2" id="profile-info-submit">Cập nhật thông tin</button>
+                    </form>
+                </div>
+
+                <!-- Form: Đổi mật khẩu -->
+                <div class="card p-4" id="security">
+                    <h2 class="content-section-title" style="font-size: 1.25rem;">Đổi mật khẩu</h2>
+                    
+                    <form class="auth-form profile-form" id="profile-password-form" style="max-width: 500px;" hidden>
+                        <p class="profile-feedback" id="profile-password-feedback" role="status" hidden></p>
+                        <div class="form-group">
+                            <label for="currentPassword" class="form-label">Mật khẩu hiện tại</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="currentPassword" class="form-input" placeholder="Nhập mật khẩu hiện tại" required autocomplete="current-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword" class="form-label">Mật khẩu mới</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-key input-icon"></i>
+                                <input type="password" id="newPassword" class="form-input" placeholder="Tối thiểu 8 ký tự, có chữ và số" required minlength="8" autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline mt-2" id="profile-password-submit"><i class="fa-solid fa-shield-halved ms-2"></i> Lưu mật khẩu mới</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <script type="module" src="js/pages/profile.js"></script>
+</body>
+</html>

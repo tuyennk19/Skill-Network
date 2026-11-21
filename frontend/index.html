@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill_Network - Nền tảng Đánh giá Năng lực AI</title>
+    
+    <!-- Font chữ Inter cao cấp -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- File CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar Kính mờ -->
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="active">Trang chủ</a>
+                <a href="courses.html">Khóa học bổ trợ</a>
+                <a href="history.html">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-ghost">Đăng nhập</a>
+                <a href="register.html" class="btn btn-primary">Bắt đầu miễn phí</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section Hiện đại -->
+    <section class="hero">
+        <div class="hero-bg-shapes"></div>
+        <div class="container hero-content">
+            <div class="badge-pill">✨ Tích hợp công nghệ AI Gemini</div>
+            <h1 class="hero-title">Định vị năng lực nghề nghiệp với <br><span class="text-gradient">Trí Tuệ Nhân Tạo</span></h1>
+            <p class="hero-subtitle">Giải quyết các tình huống thực chiến, nhận phản hồi chuyên sâu từ hệ thống AI và xây dựng lộ trình thăng tiến dành riêng cho bạn.</p>
+            <div class="hero-actions">
+                <a href="#tracks-section" class="btn btn-primary btn-large shadow-hover">
+                    Khám phá ngành nghề <i class="fa-solid fa-arrow-right ms-2"></i>
+                </a>
+                <a href="#how-it-works" class="btn btn-outline btn-large">
+                    <i class="fa-regular fa-circle-play ms-2"></i> Tìm hiểu thêm
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Section: Chọn Ngành Nghề -->
+        <section id="tracks-section" class="section bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Lựa chọn lĩnh vực của bạn</h2>
+                    <p class="section-desc">Các bài test được thiết kế sát với thực tế doanh nghiệp, giúp bạn bộc lộ tối đa kỹ năng chuyên môn.</p>
+                </div>
+
+                <p id="tracks-status" class="data-status" hidden></p>
+                <div class="grid-container tracks-grid" id="tracks-list"></div>
+            </div>
+        </section>
+
+        <!-- Section: Khóa học nổi bật -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header align-left-header">
+                    <div>
+                        <h2 class="section-title">Khóa học bù đắp kỹ năng</h2>
+                        <p class="section-desc">Những lộ trình học tập được AI đề xuất nhiều nhất.</p>
+                    </div>
+                    <a href="courses.html" class="btn btn-outline">Xem tất cả</a>
+                </div>
+
+                <p id="featured-courses-status" class="data-status" hidden></p>
+                <div class="grid-container courses-grid" id="featured-courses"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-layer-group"></i> Skill_Network
+                <p class="mt-2 text-sm text-gray">Nền tảng thực chiến nghề nghiệp thế hệ mới.</p>
+            </div>
+            <div class="footer-links">
+                <p>&copy; 2026 Đồ án Công nghệ Phần mềm.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="js/pages/home.js"></script>
+</body>
+</html>

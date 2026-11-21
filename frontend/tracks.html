@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Tình Huống - Skill_Network</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="courses.html">Khóa học bổ trợ</a>
+                <a href="history.html">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-outline" id="track-auth-link">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Trang -->
+    <section class="page-header" style="padding: 100px 0 50px;">
+        <div class="container">
+            <label class="sr-only" for="track-select">Chọn ngành nghề</label>
+            <select class="filter-select track-page-select" id="track-select" aria-label="Chọn ngành nghề"></select>
+            <p class="track-page-description" id="track-description"></p>
+            <h1 class="page-title">Ngân hàng Tình huống thực chiến</h1>
+            <p class="page-desc">Xem các tình huống đang mở cho ngành nghề đã chọn.</p>
+            
+            <div class="mt-4" style="margin-top: 24px;">
+                <a href="login.html" id="random-case-link" class="btn btn-primary btn-large shadow-hover">
+                    <i class="fa-solid fa-shuffle ms-2"></i> Làm một tình huống ngẫu nhiên
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Danh sách tình huống -->
+    <main class="section pt-0">
+        <div class="container">
+            <div class="section-header align-left-header" style="margin-bottom: 30px;">
+                <h2 class="content-section-title" style="margin-bottom: 0;" id="cases-heading">Tình huống đang mở</h2>
+            </div>
+            <p id="cases-status" class="data-status" hidden></p>
+            <div class="grid-container cases-grid" id="cases-list"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content text-center" style="display:block;">
+            <div class="footer-logo mb-4">
+                <i class="fa-solid fa-layer-group"></i> Skill_Network
+            </div>
+            <p class="text-muted">&copy; 2026 Đồ án Công nghệ Phần mềm.</p>
+        </div>
+    </footer>
+    <script type="module" src="js/pages/track-cases.js"></script>
+</body>
+</html>

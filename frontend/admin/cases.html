@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Tình huống - Skill_Network Admin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    
+    <div class="admin-layout">
+        <!-- Sidebar Menu -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <span>Skill_Network</span>
+            </div>
+            
+            <div class="admin-menu-label">TỔNG QUAN</div>
+            <nav class="admin-nav">
+                <a href="/admin/index.html" class="admin-nav-link"><i class="fa-solid fa-chart-pie w-5"></i> Dashboard</a>
+            </nav>
+
+            <div class="admin-menu-label mt-4">QUẢN LÝ HỆ THỐNG</div>
+            <nav class="admin-nav">
+                <a href="/admin/tracks.html" class="admin-nav-link"><i class="fa-solid fa-briefcase w-5"></i> Ngành & Tiêu chí</a>
+                <a href="/admin/courses.html" class="admin-nav-link"><i class="fa-solid fa-laptop-code w-5"></i> Khóa học</a>
+                <a href="/admin/cases.html" class="admin-nav-link active"><i class="fa-solid fa-file-contract w-5"></i> Tình huống (Cases)</a>
+                <a href="/admin/submissions.html" class="admin-nav-link"><i class="fa-solid fa-inbox w-5"></i> Bài nộp & Điểm</a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <button class="btn btn-outline btn-block text-red" data-logout style="border-color: #fca5a5;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-topbar">
+                <h1 class="admin-page-title">Ngân hàng Tình huống (Cases)</h1>
+                <div class="admin-profile">
+                    <span class="text-sm font-medium mr-2">Xin chào, <strong>Quản trị viên</strong></span>
+                    <div class="profile-avatar-small bg-primary text-white">AD</div>
+                </div>
+            </header>
+
+            <div class="admin-content-inner">
+                <!-- Toolbar -->
+                <div class="admin-toolbar mb-4">
+                    <div class="search-input-wrapper" style="max-width: 450px; display: flex; gap: 12px; align-items: center;">
+                        <div style="position: relative; flex-grow: 1;">
+                            <i class="fa-solid fa-search search-icon"></i>
+                            <input type="text" class="search-input" id="case-search" placeholder="Tìm kiếm đề bài tình huống...">
+                        </div>
+                        <select class="form-input" id="case-track-filter" style="padding: 10px; width: 180px;">
+                            <option value="">Lọc theo Ngành</option>
+                            <option value="1">Bán hàng B2B</option>
+                            <option value="2">Digital Marketing</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary shadow-hover" id="case-add">
+                        <i class="fa-solid fa-plus ms-2"></i> Thêm Tình Huống
+                    </button>
+                </div>
+
+                <!-- Bảng Dữ liệu -->
+                <div class="card p-0">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">ID</th>
+                                    <th width="35%">Tiêu đề Tình huống</th>
+                                    <th width="15%">Ngành nghề</th>
+                                    <th width="10%">Độ khó</th>
+                                    <th width="15%">Trạng thái</th>
+                                    <th width="15%" class="text-right">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="case-list"></tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-footer">
+                        <span class="text-sm text-muted">Đang tải tình huống...</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= MODAL: THÊM / SỬA TÌNH HUỐNG ================= -->
+    <div class="modal-overlay" id="case-modal">
+        <div class="modal-container modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Quản lý Đề bài Tình huống</h3>
+                <button class="modal-close" data-modal-close="case-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="modal-body bg-light" id="case-form-container">
+                <form class="auth-form" style="max-width: 100%;">
+                    <div class="card p-4">
+                        <div class="grid-container" style="grid-template-columns: 2fr 1fr; gap: 16px;">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Tiêu đề Tình huống</label>
+                                <input type="text" class="form-input" placeholder="VD: Khách hàng chê giá cao..." style="padding-left: 14px;">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Ngành nghề</label>
+                                <select class="form-input" style="padding-left: 14px;">
+                                    <option value="1">Bán hàng B2B</option>
+                                    <option value="2">Digital Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid-container mt-4" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Độ khó</label>
+                                <select class="form-input" style="padding-left: 14px;">
+                                    <option value="Dễ">Dễ</option>
+                                    <option value="Trung bình" selected>Trung bình</option>
+                                    <option value="Khó">Khó</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Trạng thái (Bật/Tắt)</label>
+                                <select class="form-input" style="padding-left: 14px;">
+                                    <option value="1">Mở cho học viên test</option>
+                                    <option value="0">Tạm ẩn</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4 mb-0">
+                            <label class="form-label">Nội dung Bối cảnh (Scenario)</label>
+                            <!-- Textarea rộng để Admin nhập đề bài -->
+                            <textarea class="form-input" rows="6" placeholder="Mô tả bối cảnh chi tiết để học viên giải quyết..." style="padding-left: 14px; resize: vertical; line-height: 1.6;"></textarea>
+                            <p class="text-xs text-muted mt-2"><i class="fa-solid fa-circle-info"></i> Hệ thống AI sẽ dùng nội dung này làm Context để đối chiếu với câu trả lời của sinh viên.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-ghost" data-modal-close="case-modal">Hủy bỏ</button>
+                <button class="btn btn-primary" id="case-save"><i class="fa-solid fa-check ms-2"></i> Lưu Tình Huống</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../js/pages/admin-cases.js"></script>
+</body>
+</html>

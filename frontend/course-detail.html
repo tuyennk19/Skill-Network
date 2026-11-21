@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Khóa học - Skill_Network</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <header class="navbar glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                Skill_Network
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="courses.html" class="active">Khóa học bổ trợ</a>
+                <a href="history.html">Lịch sử đánh giá</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-ghost">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Khóa học -->
+    <div class="course-header">
+        <div class="container course-hero-grid">
+            <div class="course-hero-info">
+                <div class="breadcrumb">
+                    <a href="index.html">Trang chủ</a> <i class="fa-solid fa-chevron-right" style="font-size: 0.6rem; margin-top:4px"></i>
+                    <a href="courses.html">Khóa học</a> <i class="fa-solid fa-chevron-right" style="font-size: 0.6rem; margin-top:4px"></i>
+                    <span>Chi tiết</span>
+                </div>
+                <span class="badge badge-medium" id="course-level-badge" style="position:static; display:inline-block; margin-bottom: 16px;"></span>
+                
+                <h1 class="detail-title" id="course-title">Đang tải khóa học...</h1>
+                <p class="detail-desc" id="course-description"></p>
+                
+                <div class="detail-stats">
+                    <div class="stat-item"><i class="fa-regular fa-clock stat-icon"></i> <span id="course-duration"></span></div>
+                    <div class="stat-item"><i class="fa-solid fa-signal stat-icon"></i> <span id="course-level"></span></div>
+                </div>
+                
+                <div class="course-catalog-note">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Khóa học tham khảo trong thư viện kỹ năng</span>
+                </div>
+            </div>
+            
+            <div class="course-image-wrapper">
+                <img id="course-image" alt="" class="course-image" hidden>
+                <span class="course-image-caption" id="course-image-caption">Thư viện kỹ năng</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p id="course-status" class="data-status" hidden></p>
+    </div>
+
+    <!-- Nội dung chính & Sidebar -->
+    <div class="container content-grid">
+        <div class="main-content">
+            <div class="content-section">
+                <h2 class="content-section-title">Tổng quan khóa học</h2>
+                <p id="course-overview">Thông tin mô tả đang được cập nhật.</p>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="content-section-title">Tiêu chí năng lực liên quan</h2>
+                <p class="text-muted" style="margin-bottom: 20px;">Khóa học được gắn với các tiêu chí năng lực sau để tham khảo khi xây dựng lộ trình cải thiện:</p>
+                
+                <p id="course-criteria-empty" class="text-muted" hidden>Khóa học chưa được gán tiêu chí năng lực.</p>
+                <div class="criteria-list" id="course-criteria-list"></div>
+            </div>
+        </div>
+        
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 style="margin-bottom: 20px;">Thông tin khóa học</h3>
+                
+                <ul class="sidebar-list">
+                    <li><span class="text-muted"><i class="fa-solid fa-layer-group w-5"></i> Ngành nghề:</span> <strong id="course-track">—</strong></li>
+                    <li><span class="text-muted"><i class="fa-solid fa-signal w-5"></i> Cấp độ:</span> <strong id="course-level-sidebar">—</strong></li>
+                    <li><span class="text-muted"><i class="fa-regular fa-clock w-5"></i> Thời lượng:</span> <strong id="course-duration-sidebar">—</strong></li>
+                    <li><span class="text-muted"><i class="fa-solid fa-bullseye w-5"></i> Tiêu chí:</span> <strong id="course-criteria-sidebar">—</strong></li>
+                </ul>
+                <p class="course-catalog-footnote">Đây là thông tin danh mục, không bao gồm bài học hoặc đăng ký học.</p>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-content text-center" style="display:block;">
+            <div class="footer-logo mb-4">
+                <i class="fa-solid fa-layer-group"></i> Skill_Network
+            </div>
+            <div class="footer-links text-muted">
+                <p>&copy; 2026 Đồ án Công nghệ Phần mềm.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="js/pages/course-detail.js"></script>
+</body>
+</html>
